@@ -1,7 +1,8 @@
 package com.example.verupdate.Dao;
 
 public class UpdateKindNameMap {
-    private Integer id;
-    private Character type;
-    private String kind_name;
+    public Integer id;
+    public Character type;
+    public String kind_name;
+    public String kind_key;
 }

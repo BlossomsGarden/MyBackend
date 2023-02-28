@@ -9,5 +9,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UpdateVersionMapper {
-    public UpdateVersion getVersionInfo(Integer id);
+    public UpdateVersion queryOneVersion(Integer id);
+    public List<UpdateVersion> getAllVersionId();
 }

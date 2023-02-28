@@ -7,26 +7,37 @@
 -->
 <mapper namespace="com.example.verupdate.Mapper.UpdateVersionMapper">
 
-    <!--不是，尼玛真离谱，我跑一下午不知道报什么错，你突然给我跑通了是吧-->
     <resultMap id="Main" type="com.example.verupdate.Dao.UpdateVersion">
         <id column="version_id" property="id" javaType="Integer"/>
         <result column="version_no" property="version_no" javaType="String"/>
         <result column="launch_time" property="launch_time" javaType="String"/>
         <!--通过association关键字将User的属性引入进来，几乎每一个表对应的xml都有一个关于本表所有字段的resultMap，其实直接把User的全表resultMap内容复制过来即可-->
-        <!--你一定要记得这里的ofType和上面的type都是要加com.的路径的-->
+        <!--你一定要记得这里的ofType和上面的type都是com.路径的-->
         <collection property="update_infos" ofType="com.example.verupdate.Dao.UpdateInfo">
             <id column="info_id" property="id" javaType="Integer"/>
             <result column="update_id" property="update_id" javaType="Integer"/>
             <result column="type" property="type" javaType="Character"/>
             <result column="update_kind_name_id" property="update_kind_name_id" javaType="Integer"/>
             <result column="update_content" property="update_content" javaType="String"/>
+            <association property="updateKindNameMap" javaType="com.example.verupdate.Dao.UpdateKindNameMap">
+                <id column="kind_name_id" property="id" javaType="Integer"/>
+                <result column="kind_name_type" property="type" javaType="Character"/>
+                <result column="kind_name" property="kind_name" javaType="String"/>
+                <result column="kind_key" property="kind_key" javaType="String"/>
+            </association>
         </collection>
     </resultMap>
 
-    <select id="getVersionInfo" resultMap="Main" parameterType="Integer">
+    <select id="queryOneVersion" resultMap="Main" parameterType="Integer">
         select v.id as version_id,v.version_no,v.launch_time,
-        i.id as info_id,i.update_id,i.type,i.update_kind_name_id,i.update_content
-        from update_version v, update_info i where v.id=i.update_id and v.id=#{id}
+        i.id as info_id,i.update_id,i.type,i.update_kind_name_id,i.update_content,
+        k.id as kind_name_id,k.type,k.kind_name,k.kind_key
+        from update_version v, update_info i, update_kind_name_map k
+        where v.id=i.update_id and i.update_kind_name_id=k.id and v.id=#{id}
+    </select>
+
+    <select id="getAllVersionId" resultType="com.example.verupdate.Dao.UpdateVersion">
+        select id from update_version
     </select>
 
 </mapper>
