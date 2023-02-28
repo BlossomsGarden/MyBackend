@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://139.196.197.42/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: "@Violetforever25"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#server:
+#  port: 8443
+#  ssl:
+#    key-store: cert/wallbreaker.pfx
+#    key-store-password: AbqKt29v

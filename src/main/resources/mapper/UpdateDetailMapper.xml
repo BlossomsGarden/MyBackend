@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+关于mybatis通过xml文件映射操作可参考：https://blog.csdn.net/tryll/article/details/100087608
+-->
+<mapper namespace="com.example.verupdate.Mapper.UpdateVersionMapper">
+
+    <!--不是，尼玛真离谱，我跑一下午不知道报什么错，你突然给我跑通了是吧-->
+    <resultMap id="Main" type="com.example.verupdate.Dao.UpdateVersion">
+        <id column="version_id" property="id" javaType="Integer"/>
+        <result column="version_no" property="version_no" javaType="String"/>
+        <result column="launch_time" property="launch_time" javaType="String"/>
+        <!--通过association关键字将User的属性引入进来，几乎每一个表对应的xml都有一个关于本表所有字段的resultMap，其实直接把User的全表resultMap内容复制过来即可-->
+        <!--你一定要记得这里的ofType和上面的type都是要加com.的路径的-->
+        <collection property="update_infos" ofType="com.example.verupdate.Dao.UpdateInfo">
+            <id column="info_id" property="id" javaType="Integer"/>
+            <result column="update_id" property="update_id" javaType="Integer"/>
+            <result column="type" property="type" javaType="Character"/>
+            <result column="update_kind_name_id" property="update_kind_name_id" javaType="Integer"/>
+            <result column="update_content" property="update_content" javaType="String"/>
+        </collection>
+    </resultMap>
+
+    <select id="getVersionInfo" resultMap="Main" parameterType="Integer">
+        select v.id as version_id,v.version_no,v.launch_time,
+        i.id as info_id,i.update_id,i.type,i.update_kind_name_id,i.update_content
+        from update_version v, update_info i where v.id=i.update_id and v.id=#{id}
+    </select>
+
+</mapper>
