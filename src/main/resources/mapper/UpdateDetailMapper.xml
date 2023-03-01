@@ -40,4 +40,8 @@
         select id from update_version
     </select>
 
+    <select id="getAllKind" resultType="com.example.verupdate.Dao.UpdateKindNameMap">
+        select id,type,kind_name,kind_key from update_kind_name_map
+    </select>
+
 </mapper>

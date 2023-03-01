@@ -1,6 +1,7 @@
 package com.example.verupdate.Service;
 
 import com.example.verupdate.Dao.OneVersion;
+import com.example.verupdate.Dao.UpdateKindNameMap;
 import com.example.verupdate.Dao.UpdateVersion;
 import com.example.verupdate.Mapper.UpdateVersionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,6 @@ public class UpdateVersionImpl implements UpdateVersionI {
     public List<UpdateVersion> getAllVersionId(){
         return updateVersionMapper.getAllVersionId();
     }
+    @Override
+    public List<UpdateKindNameMap> getAllKind(){return updateVersionMapper.getAllKind();}
 }
