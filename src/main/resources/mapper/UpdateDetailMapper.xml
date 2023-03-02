@@ -7,6 +7,7 @@
 -->
 <mapper namespace="com.example.verupdate.Mapper.UpdateVersionMapper">
 
+    <!--此处property为Dao层中定义的类的变量名（用小驼峰更好）；column为数据表中的键（第18行info_id是因为下面有as）-->
     <resultMap id="Main" type="com.example.verupdate.Dao.UpdateVersion">
         <id column="version_id" property="id" javaType="Integer"/>
         <result column="version_no" property="version_no" javaType="String"/>
